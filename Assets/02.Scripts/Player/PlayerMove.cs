@@ -7,10 +7,7 @@ public class PlayerMove : MonoBehaviour
     public float Speed = 0.05f;
     // e키 , 업다운 량, 
     public RectTransform restrictArea;
-    private void Start()
-    {
-        
-    }
+    
 
     private void SpeedUp()
     {
@@ -55,11 +52,12 @@ public class PlayerMove : MonoBehaviour
             float minY = corners[0].y;
             float maxY = corners[2].y;
             
+            // 세모가 왼쪽 끝(minX)보다 더 나가면 오른쪽 끝(maxX)으로 이동
             if (currentPos.x > maxX)
             {
                 currentPos.x = minX;
             }
-            // 세모가 왼쪽 끝(minX)보다 더 나가면 오른쪽 끝(maxX)으로 이동
+            
             else if (currentPos.x < minX)
             {
                 currentPos.x = maxX;
