@@ -43,8 +43,7 @@ public class PlayerMove : MonoBehaviour
         //매직 넘버란? : 보는 사람에 따라 의미가 달라질 수 있는 숫자 
         transform.Translate(direction * Speed * Time.deltaTime);
 
-        if (restrictArea != null)
-        {
+       
             Vector3 currentPos = transform.position;
             // UI 이미지의 네 모서리 월드 좌표를 가져옵니다.
             Vector3[] corners = new Vector3[4];
@@ -65,13 +64,11 @@ public class PlayerMove : MonoBehaviour
             {
                 currentPos.x = maxX;
             }
-            
-         
-            float clampedY = Mathf.Clamp(transform.position.y, minY, maxY );
 
            
             currentPos.y = Mathf.Clamp(currentPos.y, minY , maxY );
+            
             transform.position = currentPos;
-        }
+        
     }
 }
