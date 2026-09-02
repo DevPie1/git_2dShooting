@@ -11,7 +11,7 @@ public class PlayerFire : MonoBehaviour
     public Transform[] mainFirePoint;
     public Transform[] subFirePoint;
 
-    private float coolTimeSec = 0.3f;
+    private float coolTimeSec = 0.6f;
 
     private float curSec = 0f;
     
