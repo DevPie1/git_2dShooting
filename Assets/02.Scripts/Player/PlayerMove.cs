@@ -8,32 +8,34 @@ public class PlayerMove : MonoBehaviour
     // e키 , 업다운 량, 
     public RectTransform restrictArea;
     
+    private void SpeedChange()
+    {
+        if (Input.GetKey(KeyCode.Q))
+        {
+            Speed += 0.03f;
+        }
 
-    private void SpeedUp()
-    {
-        Speed += 0.03f;
-    }
-    private void SpeedDown()
-    {
-        Speed -= 0.03f;
+        else if (Input.GetKey(KeyCode.E))
+        {
+            Speed -= 0.03f;
+        }
     }
 
     private void Update()
+    {
+        SpeedChange();
+
+        Move();
+    }
+
+    private void Move()
     {
         //Vector2 direction = new Vector2(-1, 0);
         //1. 키보드 입력을 받는다.
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKey(KeyCode.Q))
-        {
-            SpeedUp();
-        }
-
-        if (Input.GetKey(KeyCode.E))
-        {
-            SpeedDown();
-        }
+        
 
         Vector2 direction = new Vector2(h, v).normalized;
         //Debug.Log("왼쪽 방향키를 누르는 중");
@@ -41,32 +43,31 @@ public class PlayerMove : MonoBehaviour
         transform.Translate(direction * Speed * Time.deltaTime);
 
        
-            Vector3 currentPos = transform.position;
-            // UI 이미지의 네 모서리 월드 좌표를 가져옵니다.
-            Vector3[] corners = new Vector3[4];
-            restrictArea.GetWorldCorners(corners);
+        Vector3 currentPos = transform.position;
+        // UI 이미지의 네 모서리 월드 좌표를 가져옵니다.
+        Vector3[] corners = new Vector3[4];
+        restrictArea.GetWorldCorners(corners);
 
          
-            float minX = corners[0].x;
-            float maxX = corners[2].x;
-            float minY = corners[0].y;
-            float maxY = corners[2].y;
+        float minX = corners[0].x;
+        float maxX = corners[2].x;
+        float minY = corners[0].y;
+        float maxY = corners[2].y;
             
-            // 세모가 왼쪽 끝(minX)보다 더 나가면 오른쪽 끝(maxX)으로 이동
-            if (currentPos.x > maxX)
-            {
-                currentPos.x = minX;
-            }
+        // 세모가 왼쪽 끝(minX)보다 더 나가면 오른쪽 끝(maxX)으로 이동
+        if (currentPos.x > maxX)
+        {
+            currentPos.x = minX;
+        }
             
-            else if (currentPos.x < minX)
-            {
-                currentPos.x = maxX;
-            }
+        else if (currentPos.x < minX)
+        {
+            currentPos.x = maxX;
+        }
 
            
-            currentPos.y = Mathf.Clamp(currentPos.y, minY , maxY );
+        currentPos.y = Mathf.Clamp(currentPos.y, minY , maxY );
             
-            transform.position = currentPos;
-        
+        transform.position = currentPos;
     }
 }
