@@ -1,14 +1,25 @@
 using System;
 using UnityEngine;
 
-public class EnemyMove : MonoBehaviour
+public abstract class EnemyMove : MonoBehaviour
 {
-    private Vector2 _direction = new Vector2(0, -1);
-
     public float _speed = 0.5f;
 
-    private void Update()
+    protected Transform playerTransform;
+
+    protected virtual void Awake()
     {
-        transform.Translate(_direction * _speed * Time.deltaTime);
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            playerTransform = player.transform;
+        }
     }
+
+    void Update()
+    {
+        Move();
+    }
+
+    protected abstract void Move();
 }
