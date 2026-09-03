@@ -4,7 +4,8 @@ public class PlayerMove : MonoBehaviour
 {
     // 목적 : 키보드 입력에 따라서 플레이어 이동 처리를 하고 싶다.
 
-    public float _speed = 0.05f;
+    public float _speed = 0.5f;
+    public float _changeAmount = 0.2f;
 
     // e키 , 업다운 량, 
     public RectTransform _restrictArea;
@@ -13,12 +14,12 @@ public class PlayerMove : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Q))
         {
-            _speed += 0.03f;
+            _speed *= _changeAmount * 10;
         }
 
         else if (Input.GetKey(KeyCode.E))
         {
-            _speed -= 0.03f;
+            _speed *= _changeAmount;
         }
     }
 
