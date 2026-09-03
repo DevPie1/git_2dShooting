@@ -5,17 +5,19 @@ public class PlayerFire : MonoBehaviour
     //목표 : 스페이스바를 누를때마다 총알을 생성해서 발사하고 싶다.
     //필요속성
     // - 총알 프리팹
-    public GameObject BulletPrefab;
-    public GameObject SubBulletPrefab;
+    public GameObject _bulletPrefab;
+    public GameObject _subBulletPrefab;
 
-    public Transform[] mainFirePoint;
-    public Transform[] subFirePoint;
 
-    private float coolTimeSec = 0.6f;
+    public Transform[] _mainFirePoint;
+    public Transform[] _subFirePoint;
 
-    private float curSec = 0f;
-    
-    private bool isAutoFire = false;
+    private float _coolTimeSec = 0.6f;
+
+    private float _curSec = 0f;
+
+    private bool _isAutoFire = false;
+
     private void Update()
     {
         Fire();
@@ -26,54 +28,51 @@ public class PlayerFire : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            isAutoFire = !isAutoFire;
+            _isAutoFire = !_isAutoFire;
         }
 
-        if (isAutoFire)
+        if (_isAutoFire)
         {
-            if( curSec >= coolTimeSec)
+            if (_curSec >= _coolTimeSec)
             {
-                foreach (Transform firePoint in mainFirePoint)
+                foreach (Transform firePoint in _mainFirePoint)
                 {
-                    GameObject bullet = Instantiate(BulletPrefab);
-                    bullet.transform.position = firePoint.position;
-                    
-                }
-
-                foreach (Transform firePoint in subFirePoint)
-                {
-                    GameObject bullet = Instantiate(SubBulletPrefab);
+                    GameObject bullet = Instantiate(_bulletPrefab);
                     bullet.transform.position = firePoint.position;
                 }
 
-                curSec = 0f;
+                foreach (Transform firePoint in _subFirePoint)
+                {
+                    GameObject bullet = Instantiate(_subBulletPrefab);
+                    bullet.transform.position = firePoint.position;
+                }
+
+                _curSec = 0f;
             }
         }
     }
 
     private void Fire()
     {
-        curSec += Time.deltaTime;
+        _curSec += Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if( curSec >= coolTimeSec)
+            if (_curSec >= _coolTimeSec)
             {
-                foreach (Transform firePoint in mainFirePoint)
+                foreach (Transform firePoint in _mainFirePoint)
                 {
-                    GameObject bullet = Instantiate(BulletPrefab);
-                    bullet.transform.position = firePoint.position;
-                    
-                }
-
-                foreach (Transform firePoint in subFirePoint)
-                {
-                    GameObject bullet = Instantiate(SubBulletPrefab);
+                    GameObject bullet = Instantiate(_bulletPrefab);
                     bullet.transform.position = firePoint.position;
                 }
 
-                curSec = 0f;
+                foreach (Transform firePoint in _subFirePoint)
+                {
+                    GameObject bullet = Instantiate(_subBulletPrefab);
+                    bullet.transform.position = firePoint.position;
+                }
+
+                _curSec = 0f;
             }
-            
         }
     }
 }
