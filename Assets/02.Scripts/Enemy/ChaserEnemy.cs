@@ -5,7 +5,9 @@ public class ChaserEnemy : EnemyMove
     private void Start()
     {
         _speed = 2.0f;
+
         GameObject player = GameObject.FindGameObjectWithTag("Player");
+
         if (player != null)
         {
             playerTransform = player.transform;
@@ -14,15 +16,29 @@ public class ChaserEnemy : EnemyMove
 
     protected override void Move()
     {
-        if (playerTransform != null)
-        {
-            Vector2 direction = (playerTransform.position - transform.position).normalized;
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
 
-            transform.Translate(direction * _speed * Time.deltaTime, Space.World);
+        if (player != null)
+        {
+            playerTransform = player.transform;
+
+            Vector2 direction = playerTransform.position - transform.position;
+
+            if (direction.magnitude > 0.1f)
+            {
+                direction.Normalize();
+            }
+
+            transform.Translate(
+                direction * _speed * Time.deltaTime,
+                Space.World
+            );
         }
         else
         {
-            transform.Translate(Vector2.down * _speed * Time.deltaTime);
+            transform.Translate(
+                Vector2.down * _speed * Time.deltaTime
+            );
         }
     }
 }
