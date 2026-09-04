@@ -21,6 +21,10 @@ public class EnemeySpawner : MonoBehaviour
             float randomChance = Random.Range(0f, 100f);
             int targetIndex = 0;
 
+
+            //TODO : ScriptableObject를 사용해서 리팩토링
+            // 이뮤1 : 배영을 사용했지만 각 아이템이 어떤 프리팹인지 알수가 없음
+            // 이유 2 : 각 에너미 스폰 확률을 매직 넘버로 하드코딩해서 유지보수가 어렵 
             if (randomChance < 50f)
             {
                 // 0 ~ 50 미만 (50% 확률) -> Downward

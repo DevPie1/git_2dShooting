@@ -37,7 +37,13 @@ public abstract class EnemyMove : MonoBehaviour
                 _enemyState.Die();
             }
         }
+
+        if (other.gameObject.CompareTag("DestroyZone"))
+        {
+            _enemyState.Die();
+        }
     }
+
 
     protected abstract void Move();
 }
