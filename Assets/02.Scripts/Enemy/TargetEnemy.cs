@@ -6,6 +6,7 @@ public class TargetEnemy : EnemyMove
 
     void Start()
     {
+        Damage = 30;
         _speed = 2f;
         if (playerTransform != null)
         {

@@ -26,7 +26,7 @@ public class Bullet : MonoBehaviour
             EnemyState _enemy = other.gameObject.GetComponent<EnemyState>();
             if (_enemy != null)
             {
-                _enemy.TakeDamage(_damage); // Enemy 스크립트에 있는 데미지 함수 호출 (예시)
+                _enemy.Die(); // Enemy 스크립트에 있는 데미지 함수 호출 (예시)
             }
 
             Destroy(this.gameObject);

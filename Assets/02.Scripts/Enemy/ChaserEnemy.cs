@@ -2,26 +2,22 @@ using UnityEngine;
 
 public class ChaserEnemy : EnemyMove
 {
-    private GameObject _player;
-
     private void Start()
     {
         _speed = 2.0f;
+        Damage = 40;
 
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-
-        if (player != null)
+        if (Player != null)
         {
-            playerTransform = player.transform;
+            playerTransform = Player.transform;
         }
     }
 
     protected override void Move()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (_player != null)
+        if (Player != null)
         {
-            playerTransform = _player.transform;
+            playerTransform = Player.transform;
 
             Vector2 direction = playerTransform.position - transform.position;
 
