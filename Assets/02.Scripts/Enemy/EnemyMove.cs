@@ -7,14 +7,6 @@ public abstract class EnemyMove : MonoBehaviour
 
     protected Transform playerTransform;
 
-    protected virtual void Awake()
-    {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-        {
-            playerTransform = player.transform;
-        }
-    }
 
     void Update()
     {

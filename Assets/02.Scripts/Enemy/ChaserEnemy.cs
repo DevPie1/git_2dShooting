@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class ChaserEnemy : EnemyMove
 {
-    private Vector2 _direction;
-
     private void Start()
     {
         _speed = 2.0f;
@@ -24,28 +22,23 @@ public class ChaserEnemy : EnemyMove
         {
             playerTransform = player.transform;
 
-            _direction = playerTransform.position - transform.position;
+            Vector2 direction = playerTransform.position - transform.position;
 
-            if (playerTransform != null)
+            if (direction.magnitude > 0.1f)
             {
-                _direction = (playerTransform.position - transform.position).normalized;
-
-                if (_direction.magnitude > 0.1f)
-                {
-                    _direction.Normalize();
-                }
-
-                transform.Translate(
-                    _direction * _speed * Time.deltaTime,
-                    Space.World
-                );
+                direction.Normalize();
             }
-            else
-            {
-                transform.Translate(
-                    Vector2.down * _speed * Time.deltaTime
-                );
-            }
+
+            transform.Translate(
+                direction * _speed * Time.deltaTime,
+                Space.World
+            );
+        }
+        else
+        {
+            transform.Translate(
+                Vector2.down * _speed * Time.deltaTime
+            );
         }
     }
 }
