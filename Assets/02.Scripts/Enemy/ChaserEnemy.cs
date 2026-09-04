@@ -9,6 +9,12 @@ public class ChaserEnemy : EnemyMove
 
     protected override void Move()
     {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            playerTransform = player.transform;
+        }
+
         if (playerTransform != null)
         {
             Vector2 direction = (playerTransform.position - transform.position).normalized;
