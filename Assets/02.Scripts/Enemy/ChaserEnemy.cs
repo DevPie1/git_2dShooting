@@ -5,16 +5,15 @@ public class ChaserEnemy : EnemyMove
     private void Start()
     {
         _speed = 2.0f;
-    }
-
-    protected override void Move()
-    {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
             playerTransform = player.transform;
         }
+    }
 
+    protected override void Move()
+    {
         if (playerTransform != null)
         {
             Vector2 direction = (playerTransform.position - transform.position).normalized;
