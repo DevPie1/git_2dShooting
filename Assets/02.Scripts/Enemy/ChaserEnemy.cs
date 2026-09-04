@@ -18,6 +18,7 @@ public class ChaserEnemy : EnemyMove
 
     protected override void Move()
     {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (_player != null)
         {
             playerTransform = _player.transform;
