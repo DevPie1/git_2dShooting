@@ -44,6 +44,5 @@ public abstract class EnemyMove : MonoBehaviour
         }
     }
 
-
     protected abstract void Move();
 }

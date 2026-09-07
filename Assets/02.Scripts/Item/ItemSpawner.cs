@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ItemSpawner : MonoBehaviour
 {
-    private Item[] _itemPrefabs;
+    [SerializeField] private Item[] _itemPrefabs;
 
     private float _dropChance = 0.3f;
 

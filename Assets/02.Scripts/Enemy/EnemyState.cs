@@ -1,11 +1,13 @@
 using UnityEngine;
 
-public class EnemyState : MonoBehaviour
+public abstract class EnemyState : MonoBehaviour
 {
     private ItemSpawner _itemSpawner;
+    protected int health;
 
     private void Start()
     {
+        health = 100;
         _itemSpawner = FindFirstObjectByType<ItemSpawner>();
     }
 
@@ -17,6 +19,15 @@ public class EnemyState : MonoBehaviour
         }
 
         Debug.Log("ItemSpawn");
+    }
+
+    public void TakeDamage(int damage)
+    {
+        if (health <= 0)
+        {
+            ItemSpawn();
+            Destroy(this.gameObject);
+        }
     }
 
     public void Die()

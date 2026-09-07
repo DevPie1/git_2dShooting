@@ -5,7 +5,7 @@ public class PlayerState : MonoBehaviour
 {
     public int health;
     [SerializeField] public float AttackSpeed = 1f;
-    [SerializeField] private float _moveSpeed = 5f;
+    public float _moveSpeed = 5f;
 
     private void Start()
     {

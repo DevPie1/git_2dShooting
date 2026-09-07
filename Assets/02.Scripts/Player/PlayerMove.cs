@@ -1,25 +1,33 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerMove : MonoBehaviour
 {
     // 목적 : 키보드 입력에 따라서 플레이어 이동 처리를 하고 싶다.
 
-    public float _speed = 0.5f;
+
     public float _changeAmount = 0.2f;
+
+    private PlayerState _playerState;
 
     // e키 , 업다운 량, 
     public RectTransform _restrictArea;
+
+    void Awake()
+    {
+        _playerState = GetComponent<PlayerState>();
+    }
 
     private void SpeedChange()
     {
         if (Input.GetKey(KeyCode.Q))
         {
-            _speed *= _changeAmount * 10;
+            _playerState._moveSpeed *= _changeAmount * 10;
         }
 
         else if (Input.GetKey(KeyCode.E))
         {
-            _speed *= _changeAmount;
+            _playerState._moveSpeed *= _changeAmount;
         }
     }
 
@@ -41,7 +49,7 @@ public class PlayerMove : MonoBehaviour
         Vector2 direction = new Vector2(h, v).normalized;
         //Debug.Log("왼쪽 방향키를 누르는 중");
         //매직 넘버란? : 보는 사람에 따라 의미가 달라질 수 있는 숫자 
-        transform.Translate(direction * _speed * Time.deltaTime);
+        transform.Translate(direction * _playerState._moveSpeed * Time.deltaTime);
 
 
         Vector3 currentPos = transform.position;
