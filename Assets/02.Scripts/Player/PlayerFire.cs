@@ -12,17 +12,34 @@ public class PlayerFire : MonoBehaviour
     public Transform[] _mainFirePoint;
     public Transform[] _subFirePoint;
 
+    private const float BaseCoolTime = 0.6f;
     private float _coolTimeSec = 0.6f;
 
     private float _curSec = 0f;
 
     private bool _isAutoFire = false;
+    [SerializeField] private PlayerState _playerState;
+
+
+    private void ChangeToAtkSpeed()
+    {
+        _coolTimeSec = BaseCoolTime / _playerState.AttackSpeed;
+    }
+
+    private void Awake()
+    {
+        _playerState = GetComponent<PlayerState>();
+        ChangeToAtkSpeed();
+    }
 
     private void Update()
     {
+        ChangeToAtkSpeed();
+
         Fire();
         AutoFire();
     }
+
 
     private void AutoFire()
     {
