@@ -5,7 +5,7 @@ public class PlayerMove : MonoBehaviour
 {
     // 목적 : 키보드 입력에 따라서 플레이어 이동 처리를 하고 싶다.
 
-
+    [SerializeField] private Animator _animator;
     public float _changeAmount = 0.2f;
 
     private PlayerState _playerState;
@@ -15,6 +15,7 @@ public class PlayerMove : MonoBehaviour
 
     void Awake()
     {
+        _animator = GetComponent<Animator>();
         _playerState = GetComponent<PlayerState>();
     }
 
@@ -38,15 +39,18 @@ public class PlayerMove : MonoBehaviour
         Move();
     }
 
+    //1. 키보드 입력을 받는다.
     private void Move()
     {
         //Vector2 direction = new Vector2(-1, 0);
-        //1. 키보드 입력을 받는다.
+
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
 
         Vector2 direction = new Vector2(h, v).normalized;
+
+        _animator.SetInteger("x", (int)direction.x);
         //Debug.Log("왼쪽 방향키를 누르는 중");
         //매직 넘버란? : 보는 사람에 따라 의미가 달라질 수 있는 숫자 
         transform.Translate(direction * _playerState._moveSpeed * Time.deltaTime);

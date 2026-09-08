@@ -20,7 +20,6 @@ public class Bullet : MonoBehaviour
     {
         Debug.Log("충돌 했다!");
 
-
         if (other.gameObject.CompareTag("Enemy"))
         {
             EnemyState _enemy = other.gameObject.GetComponent<EnemyState>();
