@@ -23,6 +23,7 @@ public class PlayerFire : MonoBehaviour
     [Header("=== 필살기 (Ultimate) 설정 ===")] public GameObject _bombPrefab; // 생성할 폭탄 프리팹
     private const float BombCoolTimeSec = 10.0f; // 쿨타임 10초
     private float _bombCurSec = 10.0f;
+    private AudioSource _audioSource;
 
     private void ChangeToAtkSpeed()
     {

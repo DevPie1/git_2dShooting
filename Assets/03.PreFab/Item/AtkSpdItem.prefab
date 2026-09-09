@@ -106,10 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4da28e166acb692418416966f412e448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackSpeedItem
-  _waitTime: 2
-  _moveSpeed: 5
-  _curveHeight: 2
-  _itemEftPrefab: {fileID: 2883797502249945402, guid: 1e54877675f6e4a46ad7ca7c4d7a5bf6, type: 3}
+  _itemPrefab: {fileID: 119183615461286708, guid: 141e1779869c79845bd243610f187f47, type: 3}
   _increaseAmount: 0.5
 --- !u!58 &4536483210471414393
 CircleCollider2D:

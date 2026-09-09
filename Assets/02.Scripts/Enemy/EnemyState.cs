@@ -8,11 +8,12 @@ public class EnemyState : MonoBehaviour
     private Animator _animator;
     private float _hitSec;
     [SerializeField] private GameObject _deathEftPrefab;
+    private AudioSource _audioSource;
 
     private void Start()
     {
         _animator = GetComponent<Animator>();
-
+        _audioSource = GetComponent<AudioSource>();
         _itemSpawner = FindFirstObjectByType<ItemSpawner>();
     }
 
@@ -41,7 +42,7 @@ public class EnemyState : MonoBehaviour
     {
         Debug.Log("Damage");
 
-
+        _audioSource.Play();
         _animator.SetTrigger("isHit");
 
         health -= damage;

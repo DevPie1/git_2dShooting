@@ -8,7 +8,16 @@ public class Bullet : MonoBehaviour
 
     private float _speed = 3f;
 
-    [FormerlySerializedAs("_damage")] public int damage = 20;
+    private AudioSource _audioSource;
+
+    public int damage = 20;
+
+    void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+        _audioSource.pitch = UnityEngine.Random.Range(-1.5f, 1.5f);
+        _audioSource.Play();
+    }
 
     private void Update()
     {
