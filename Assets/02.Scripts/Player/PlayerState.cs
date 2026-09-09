@@ -6,6 +6,7 @@ public class PlayerState : MonoBehaviour
     public int health;
     [SerializeField] public float AttackSpeed = 1f;
     public float _moveSpeed = 5f;
+    [SerializeField] private GameObject _playerDeathEftPrefab;
 
     private void Start()
     {
@@ -27,6 +28,7 @@ public class PlayerState : MonoBehaviour
 
     public void Die()
     {
+        GameObject playerDeathEft = Instantiate(_playerDeathEftPrefab, transform.position, Quaternion.identity);
         Destroy(this.gameObject);
     }
 

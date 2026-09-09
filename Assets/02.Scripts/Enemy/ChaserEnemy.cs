@@ -3,6 +3,8 @@ using UnityEngine;
 public class ChaserEnemy : EnemyMove
 {
     [SerializeField] private float _rotationSpeed = 10.0f;
+    [SerializeField] private GameObject _deathEftPrefab;
+    [SerializeField] private int _customHealth;
 
     private void Start()
     {
@@ -12,6 +14,17 @@ public class ChaserEnemy : EnemyMove
         if (Player != null)
         {
             playerTransform = Player.transform;
+        }
+
+        EnemyState enemyState = GetComponent<EnemyState>();
+        if (enemyState != null)
+        {
+            enemyState.SetInitialHealth(_customHealth);
+            enemyState.SetDeathEftPrefab(_deathEftPrefab);
+        }
+        else
+        {
+            Debug.LogError($"{gameObject.name}에 EnemyState 컴포넌트가 없습니다!");
         }
     }
 

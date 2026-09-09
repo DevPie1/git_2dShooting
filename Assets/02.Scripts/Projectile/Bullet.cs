@@ -18,7 +18,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("충돌 했다!");
+        Debug.Log("Bullet Hit");
 
         if (other.gameObject.CompareTag("Enemy"))
         {

@@ -7,10 +7,10 @@ public class EnemyState : MonoBehaviour
     private ItemSpawner _itemSpawner;
     private Animator _animator;
     private float _hitSec;
+    [SerializeField] private GameObject _deathEftPrefab;
 
     private void Start()
     {
-        if (health == 0) health = 60;
         _animator = GetComponent<Animator>();
 
         _itemSpawner = FindFirstObjectByType<ItemSpawner>();
@@ -20,6 +20,11 @@ public class EnemyState : MonoBehaviour
     public void SetInitialHealth(int maxHealth)
     {
         health = maxHealth;
+    }
+
+    public void SetDeathEftPrefab(GameObject prefab)
+    {
+        _deathEftPrefab = prefab;
     }
 
     public void ItemSpawn()
@@ -34,7 +39,7 @@ public class EnemyState : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        Debug.Log("TakeDamage");
+        Debug.Log("Damage");
 
 
         _animator.SetTrigger("isHit");
@@ -42,8 +47,8 @@ public class EnemyState : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            ItemSpawn();
-            Destroy(this.gameObject);
+            Instantiate(_deathEftPrefab, transform.position, Quaternion.identity);
+            Die();
         }
     }
 

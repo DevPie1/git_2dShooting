@@ -3,6 +3,7 @@ using UnityEngine;
 public class NormalEnemy : EnemyMove
 {
     [SerializeField] private int _customHealth = 20;
+    [SerializeField] private GameObject _deathEftPrefab;
 
     private void Start()
     {
@@ -11,6 +12,7 @@ public class NormalEnemy : EnemyMove
         if (enemyState != null)
         {
             enemyState.SetInitialHealth(_customHealth);
+            enemyState.SetDeathEftPrefab(_deathEftPrefab);
         }
         else
         {

@@ -20,6 +20,9 @@ public class PlayerFire : MonoBehaviour
     private bool _isAutoFire = false;
     [SerializeField] private PlayerState _playerState;
 
+    [Header("=== 필살기 (Ultimate) 설정 ===")] public GameObject _bombPrefab; // 생성할 폭탄 프리팹
+    private const float BombCoolTimeSec = 10.0f; // 쿨타임 10초
+    private float _bombCurSec = 10.0f;
 
     private void ChangeToAtkSpeed()
     {
@@ -38,6 +41,7 @@ public class PlayerFire : MonoBehaviour
 
         Fire();
         AutoFire();
+        BombFire(); // B키 필살기
     }
 
 
@@ -89,6 +93,27 @@ public class PlayerFire : MonoBehaviour
                 }
 
                 _curSec = 0f;
+            }
+        }
+    }
+
+
+    private void BombFire()
+    {
+        _bombCurSec += Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            if (_bombCurSec >= BombCoolTimeSec)
+            {
+                if (_bombPrefab != null)
+                {
+                    // 플레이어 현재 위치에 폭탄 프리팹 생성
+                    GameObject bomb = Instantiate(_bombPrefab);
+                    bomb.transform.position = this.transform.position;
+                }
+
+                _bombCurSec = 0f; // 쿨타임 초기화
             }
         }
     }

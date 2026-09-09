@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - Bullet
   - DestroyZone
+  - FxTemporaire
+  - Projectile
   layers:
   - Default
   - TransparentFX

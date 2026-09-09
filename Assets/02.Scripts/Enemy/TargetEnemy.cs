@@ -4,7 +4,8 @@ public class TargetEnemy : EnemyMove
 {
     private Vector2 _moveDirection;
 
-    [SerializeField] private int _customHealth = 40;
+    [SerializeField] private int _customHealth;
+    [SerializeField] private GameObject _deathEftPrefab;
 
     void Start()
     {
@@ -15,6 +16,7 @@ public class TargetEnemy : EnemyMove
         if (enemyState != null)
         {
             enemyState.SetInitialHealth(_customHealth);
+            enemyState.SetDeathEftPrefab(_deathEftPrefab);
         }
         else
         {

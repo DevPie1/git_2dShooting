@@ -3,15 +3,14 @@ using UnityEngine.Serialization;
 
 public class PlayerMove : MonoBehaviour
 {
-    // 목적 : 키보드 입력에 따라서 플레이어 이동 처리를 하고 싶다.
+    [SerializeField] private TrailRenderer _trailRenderer;
 
-    [SerializeField] private Animator _animator;
-    public float _changeAmount = 0.2f;
+    private Animator _animator;
+    [SerializeField] private RectTransform _restrictArea;
+
+    private float _changeAmount = 0.2f;
 
     private PlayerState _playerState;
-
-    // e키 , 업다운 량, 
-    public RectTransform _restrictArea;
 
     void Awake()
     {
@@ -47,14 +46,15 @@ public class PlayerMove : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
-
         Vector2 direction = new Vector2(h, v).normalized;
 
         _animator.SetInteger("x", (int)direction.x);
         //Debug.Log("왼쪽 방향키를 누르는 중");
         //매직 넘버란? : 보는 사람에 따라 의미가 달라질 수 있는 숫자 
-        transform.Translate(direction * _playerState._moveSpeed * Time.deltaTime);
+        Vector3 movement = direction * _playerState._moveSpeed * Time.deltaTime;
+        transform.Translate(movement);
 
+        _trailRenderer.emitting = direction != Vector2.zero;
 
         Vector3 currentPos = transform.position;
         // UI 이미지의 네 모서리 월드 좌표를 가져옵니다.
@@ -77,7 +77,6 @@ public class PlayerMove : MonoBehaviour
         {
             currentPos.x = maxX;
         }
-
 
         currentPos.y = Mathf.Clamp(currentPos.y, minY, maxY);
 

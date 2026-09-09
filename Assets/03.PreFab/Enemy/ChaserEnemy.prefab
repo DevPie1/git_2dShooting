@@ -183,6 +183,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChaserEnemy
   _speed: 0.5
   _rotationSpeed: 10
+  _deathEftPrefab: {fileID: 4593184484909914552, guid: 2e1e9506f5904a64b81744324fb7cd50, type: 3}
+  _customHealth: 60
 --- !u!114 &1471896982531887042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,6 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90be66a663f8a8645afab15967666989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyState
+  _deathEftPrefab: {fileID: 0}
 --- !u!95 &3303097536908836157
 Animator:
   serializedVersion: 7

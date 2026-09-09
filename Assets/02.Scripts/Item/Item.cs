@@ -1,14 +1,11 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public abstract class Item : MonoBehaviour
 {
-    //심화 과제 : 퍼사드 패턴
-    // 심화 과제 2 : 아이템 종류가 조합에 의해 폭발적으로 증가 할 경우에는 -> 조합패턴을 사용해라
-    // 포트폴리오에서 가장 중요한게 게임 구현 완성도 (코드의 완성도는 가장 후순위)
-
-    [SerializeField] private float _waitTime = 2f;
-    [SerializeField] private float _moveSpeed = 5f;
-    [SerializeField] private float _curveHeight = 2f;
+    private float _waitTime = 2f;
+    private float _moveSpeed = 5f;
+    private float _curveHeight = 2f;
     private Transform _player;
 
     private float _waitTimer;
@@ -21,6 +18,8 @@ public abstract class Item : MonoBehaviour
     private Vector3 _controlPoint;
     private Vector3 _targetPosition;
 
+    [SerializeField] private GameObject _itemPrefab;
+
     private void Start()
     {
         _startPosition = transform.position;
@@ -29,7 +28,7 @@ public abstract class Item : MonoBehaviour
 
         if (player != null)
         {
-            _player = player.transform;
+            this._player = player.transform;
         }
     }
 
@@ -113,6 +112,7 @@ public abstract class Item : MonoBehaviour
 
         if (player != null)
         {
+            Instantiate(_itemPrefab, transform.position, Quaternion.identity);
             ApplyEffect(player);
         }
 
