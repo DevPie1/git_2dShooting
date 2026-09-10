@@ -1,5 +1,6 @@
 using System;
 using TMPro;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
@@ -7,8 +8,8 @@ public class ScoreManager : MonoBehaviour
     //싱글톤 패턴
     // 1. 전역적으로 접근 가능하다.
     // 2. 인스턴스 (생성된 객체)가 하나임을 보장한다.
-    public static ScoreManager Instance;
-
+    public static ScoreManager _instance = null;
+    public static ScoreManager Instance => _instance;
     private int _bestScore;
     private int _currentScore;
 
@@ -17,7 +18,13 @@ public class ScoreManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        if (_instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        _instance = this;
     }
 
     private void Update()
