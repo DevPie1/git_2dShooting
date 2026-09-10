@@ -48,6 +48,9 @@ public class EnemyState : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
+            // ScoreManager scoreManager = FindAnyObjectByType<ScoreManager>();
+            //scoreManager.AddScore(100);
+            ScoreManager.Instance.AddScore(100);
             Instantiate(_deathEftPrefab, transform.position, Quaternion.identity);
             Die();
         }
