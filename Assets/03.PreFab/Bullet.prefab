@@ -107,6 +107,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5d784b5cd740746812b554e156a70b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
+  _bulletPrefabs:
+  - {fileID: 0}
+  - {fileID: 0}
   damage: 10
 --- !u!58 &5077703920483772834
 CircleCollider2D:

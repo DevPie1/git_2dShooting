@@ -8,11 +8,12 @@ public class ScoreManager : MonoBehaviour
     //싱글톤 패턴
     // 1. 전역적으로 접근 가능하다.
     // 2. 인스턴스 (생성된 객체)가 하나임을 보장한다.
-    public static ScoreManager _instance = null;
+    public static ScoreManager _instance;
     public static ScoreManager Instance => _instance;
     private int _bestScore;
     private int _currentScore;
-    private int _lastResfreshScore;
+
+    private const string SaveKey = "BestScore";
 
     [SerializeField] private TextMeshProUGUI _bestScoreTextUI;
     [SerializeField] private TextMeshProUGUI _currentScoreTextUI;
@@ -28,6 +29,19 @@ public class ScoreManager : MonoBehaviour
         _instance = this;
     }
 
+    private void Start()
+    {
+        // 저장 : Set() 시리즈를 이용해서 변수 저장이 가능하다.
+        if (PlayerPrefs.HasKey(SaveKey))
+        {
+            _bestScore = PlayerPrefs.GetInt(SaveKey);
+        }
+
+        _bestScore = PlayerPrefs.GetInt(SaveKey, 0);
+
+        Refresh();
+    }
+
     private void Update()
     {
         Refresh();
@@ -35,11 +49,8 @@ public class ScoreManager : MonoBehaviour
 
     private void Refresh()
     {
-        if (_lastResfreshScore == _currentScore) return;
-
         _bestScoreTextUI.text = $"BestScore: {_bestScore}";
         _currentScoreTextUI.text = $"Score : {_currentScore}";
-        _lastResfreshScore = _currentScore;
     }
 
     public void AddScore(int score)
@@ -51,6 +62,10 @@ public class ScoreManager : MonoBehaviour
         if (_currentScore > _bestScore)
         {
             _bestScore = _currentScore;
+            PlayerPrefs.SetInt(SaveKey, _bestScore);
+            PlayerPrefs.Save();
         }
+
+        Refresh();
     }
 }

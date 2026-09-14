@@ -4,6 +4,7 @@ using UnityEngine.Serialization;
 
 public class Bullet : MonoBehaviour
 {
+    //[SerializeField] private Bullet[] _bulletPrefabs;
     private Vector2 _direction = Vector2.up; //new Vector2(0, 1);
 
     private float _speed = 3f;
@@ -12,11 +13,27 @@ public class Bullet : MonoBehaviour
 
     public int damage = 20;
 
+    private int _poolSize = 50;
+
+    private Bullet[] _pool;
+
+    [SerializeField] BulletType _type;
+    public BulletType Type => _type;
+
     void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
-        _audioSource.pitch = UnityEngine.Random.Range(-1.5f, 1.5f);
+    }
+
+    private void PlaySound()
+    {
+        _audioSource.pitch = UnityEngine.Random.Range(1f, 3f);
         _audioSource.Play();
+    }
+
+    public void OnSpawn()
+    {
+        PlaySound();
     }
 
     private void Update()
@@ -27,7 +44,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Bullet Hit");
+        gameObject.SetActive(false);
 
         if (other.gameObject.CompareTag("Enemy"))
         {
@@ -37,7 +54,7 @@ public class Bullet : MonoBehaviour
                 _enemy.TakeDamage(damage);
             }
 
-            Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
         }
     }
 }

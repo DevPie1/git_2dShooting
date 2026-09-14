@@ -9,6 +9,8 @@ public class EnemeySpawner : MonoBehaviour
 
     [SerializeField] private float _spawnInterval = 3f;
 
+    [SerializeField] private EnemySpawnDataTableSO _spawnDataTable;
+
     private float _timer;
 
     private void Spawn()
@@ -17,31 +19,36 @@ public class EnemeySpawner : MonoBehaviour
 
         for (int i = 0; i < spawnPoints.Length; i++)
         {
-            // 0.0부터 100.0 사이의 랜덤 실수 생성
-            float randomChance = Random.Range(0f, 100f);
             int targetIndex = 0;
             //TODO : ScriptableObject를 사용해서 리팩토링
             // 이뮤 1 : 배열을 사용했지만 각 아이템이 어떤 프리팹인지 알수가 없음
             // 이유 2 : 각 에너미 스폰 확률을 매직 넘버로 하드코딩해서 유지보수가 어렵 
-            if (randomChance < 50f)
+
+            // 가중치 랜덤 선택(Weight
+            //각 아이템에 가중치를 부여하고, 가중치가 클수록 높은 확률로 선택되도록 하는 방식
+
+            // 1. 추첨할 수 있는 모든 가중치를 더한다.
+            int totalWeight = 0;
+            foreach (EnemySpawnData data in _spawnDataTable.Datas)
             {
-                // 0 ~ 50 미만 (50% 확률) -> Downward
-                targetIndex = 0;
-            }
-            else if (randomChance < 80f)
-            {
-                // 50 이상 ~ 80 미만 (30% 확률) -> Aimed
-                targetIndex = 1;
-            }
-            else
-            {
-                // 80 이상 ~ 100 이하 (20% 확률) -> Homing
-                targetIndex = 2;
+                totalWeight += data.Weight;
             }
 
-            // 결정된 인덱스의 적 프리팹 생성
-            GameObject enemy = Instantiate(enemyPrefab[targetIndex]);
-            enemy.transform.position = spawnPoints[i].position;
+            // 2. 전체 가중치 범위에서 랜덤한 정수를 뽑는다.
+            int randomWeight = Random.Range(0, totalWeight);
+
+            //3. 가중치를 누적하면서 선택된 구간을 찾는다.
+            int cumulativeWeight = 0;
+            foreach (EnemySpawnData data in _spawnDataTable.Datas)
+            {
+                cumulativeWeight += data.Weight;
+                if (randomWeight < cumulativeWeight)
+                {
+                    GameObject enemyPrefab = Instantiate(data.EnemyPrefab);
+                    enemyPrefab.transform.position = spawnPoints[i].position;
+                    break;
+                }
+            }
         }
     }
 

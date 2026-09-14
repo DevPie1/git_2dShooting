@@ -6,7 +6,7 @@ public class PlayerFire : MonoBehaviour
     //필요속성
     // - 총알 프리팹
     public GameObject _bulletPrefab;
-    public GameObject _subBulletPrefab;
+    public Bullet _subBulletPrefab;
 
 
     public Transform[] _mainFirePoint;
@@ -19,6 +19,7 @@ public class PlayerFire : MonoBehaviour
 
     private bool _isAutoFire = false;
     [SerializeField] private PlayerState _playerState;
+
 
     [Header("=== 필살기 (Ultimate) 설정 ===")] public GameObject _bombPrefab; // 생성할 폭탄 프리팹
     private const float BombCoolTimeSec = 10.0f; // 쿨타임 10초
@@ -45,6 +46,10 @@ public class PlayerFire : MonoBehaviour
         BombFire(); // B키 필살기
     }
 
+    public void SetAuto(bool auto)
+    {
+        _isAutoFire = auto;
+    }
 
     private void AutoFire()
     {
@@ -59,13 +64,13 @@ public class PlayerFire : MonoBehaviour
             {
                 foreach (Transform firePoint in _mainFirePoint)
                 {
-                    GameObject bullet = Instantiate(_bulletPrefab);
+                    Bullet bullet = BulletPool.Instance.GetBullet(BulletType.Main);
                     bullet.transform.position = firePoint.position;
                 }
 
                 foreach (Transform firePoint in _subFirePoint)
                 {
-                    GameObject bullet = Instantiate(_subBulletPrefab);
+                    Bullet bullet = BulletPool.Instance.GetBullet(BulletType.Sub);
                     bullet.transform.position = firePoint.position;
                 }
 
@@ -83,13 +88,13 @@ public class PlayerFire : MonoBehaviour
             {
                 foreach (Transform firePoint in _mainFirePoint)
                 {
-                    GameObject bullet = Instantiate(_bulletPrefab);
+                    Bullet bullet = BulletPool.Instance.GetBullet(BulletType.Main);
                     bullet.transform.position = firePoint.position;
                 }
 
                 foreach (Transform firePoint in _subFirePoint)
                 {
-                    GameObject bullet = Instantiate(_subBulletPrefab);
+                    Bullet bullet = BulletPool.Instance.GetBullet(BulletType.Sub);
                     bullet.transform.position = firePoint.position;
                 }
 
