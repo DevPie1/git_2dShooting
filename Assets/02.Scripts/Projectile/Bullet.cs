@@ -51,7 +51,8 @@ public class Bullet : MonoBehaviour
             EnemyState _enemy = other.gameObject.GetComponent<EnemyState>();
             if (_enemy != null)
             {
-                _enemy.TakeDamage(damage);
+                int finalDamage = damage + (int)UpgradeManager.Instance.Upgrades[0].CurrentValue;
+                _enemy.TakeDamage(finalDamage);
             }
 
             this.gameObject.SetActive(false);

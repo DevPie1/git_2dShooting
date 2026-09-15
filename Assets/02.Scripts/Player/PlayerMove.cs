@@ -51,7 +51,8 @@ public class PlayerMove : MonoBehaviour
         _animator.SetInteger("x", (int)direction.x);
         //Debug.Log("왼쪽 방향키를 누르는 중");
         //매직 넘버란? : 보는 사람에 따라 의미가 달라질 수 있는 숫자 
-        Vector3 movement = direction * _playerState._moveSpeed * Time.deltaTime;
+        float finalSpeed = _playerState._moveSpeed + UpgradeManager.Instance.Upgrades[1].CurrentValue;
+        Vector3 movement = direction * finalSpeed * Time.deltaTime;
         transform.Translate(movement);
 
         _trailRenderer.emitting = direction != Vector2.zero;
@@ -66,18 +67,7 @@ public class PlayerMove : MonoBehaviour
         float maxX = corners[2].x;
         float minY = corners[0].y;
         float maxY = corners[2].y;
-
-        // 세모가 왼쪽 끝(minX)보다 더 나가면 오른쪽 끝(maxX)으로 이동
-        if (currentPos.x > maxX)
-        {
-            currentPos.x = minX;
-        }
-
-        else if (currentPos.x < minX)
-        {
-            currentPos.x = maxX;
-        }
-
+        currentPos.x = Mathf.Clamp(currentPos.x, minX, maxX);
         currentPos.y = Mathf.Clamp(currentPos.y, minY, maxY);
 
         transform.position = currentPos;

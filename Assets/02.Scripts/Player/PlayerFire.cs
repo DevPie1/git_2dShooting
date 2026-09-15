@@ -62,6 +62,7 @@ public class PlayerFire : MonoBehaviour
         {
             if (_curSec >= _coolTimeSec)
             {
+                _coolTimeSec -= UpgradeManager.Instance.Upgrades[2].CurrentValue;
                 foreach (Transform firePoint in _mainFirePoint)
                 {
                     Bullet bullet = BulletPool.Instance.GetBullet(BulletType.Main);

@@ -11,7 +11,14 @@ public class ScoreManager : MonoBehaviour
     public static ScoreManager _instance;
     public static ScoreManager Instance => _instance;
     private int _bestScore;
-    private int _currentScore;
+    private int _currentScore = 0;
+    public int Score => _currentScore;
+
+    public void Spend(int amount)
+    {
+        _currentScore -= amount;
+        Refresh();
+    }
 
     private const string SaveKey = "BestScore";
 

@@ -68,8 +68,10 @@ public class PlayerAutoMove : MonoBehaviour
         // 애니메이터 설정
         _animator.SetInteger("x", Mathf.RoundToInt(direction.x));
 
+        float finalSpeed = _playerState._moveSpeed + UpgradeManager.Instance.Upgrades[1].CurrentValue;
+
         // 실제 이동 처리
-        Vector3 movement = (Vector3)direction * _playerState._moveSpeed * Time.deltaTime;
+        Vector3 movement = (Vector3)direction * finalSpeed * Time.deltaTime;
         transform.Translate(movement);
 
         // 트레일 렌더러
@@ -155,16 +157,7 @@ public class PlayerAutoMove : MonoBehaviour
         float minY = corners[0].y;
         float maxY = corners[2].y;
 
-        // X축 화면 랩핑 (Wrap-around)
-        if (currentPos.x > maxX)
-        {
-            currentPos.x = minX;
-        }
-        else if (currentPos.x < minX)
-        {
-            currentPos.x = maxX;
-        }
-
+        currentPos.x = Mathf.Clamp(currentPos.x, minX, maxX);
         // Y축 클램핑
         currentPos.y = Mathf.Clamp(currentPos.y, minY, maxY);
 
